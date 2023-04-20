@@ -321,6 +321,11 @@ namespace pGina.Configuration
             this.notify_pass.Text = Settings.Get.GetEncryptedSetting("notify_pass");
             this.notify_cred.Checked = Settings.Get.notify_cred;
             this.notify_ssl.Checked = Settings.Get.notify_ssl;
+
+            // Autologon
+            this.chk_AutoLogonEnable.Checked = Settings.Get.AutoLogonEnable;
+            this.tb_AutoLogonUsername.Text = Settings.Get.GetSetting("AutoLogonUsername");
+            this.tb_AutoLogonPassword.Text = Settings.Get.GetSetting("AutoLogonPassword");
         }
 
         private void UpdateCpStatus()
@@ -964,6 +969,11 @@ namespace pGina.Configuration
             Settings.Get.SetEncryptedSetting("notify_pass", this.notify_pass.Text);
             Settings.Get.notify_cred = this.notify_cred.Checked;
             Settings.Get.notify_ssl = this.notify_ssl.Checked;
+
+            // AutoLogon
+            Settings.Get.AutoLogonEnable = this.chk_AutoLogonEnable.Checked;
+            Settings.Get.AutoLogonUsername = this.tb_AutoLogonUsername.Text;
+            Settings.Get.AutoLogonPassword = this.tb_AutoLogonPassword.Text;
 
             return true;
         }
