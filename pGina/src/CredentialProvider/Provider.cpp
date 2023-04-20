@@ -370,6 +370,15 @@ namespace pGina
 				switch(m_usageScenario)
 				{
 				case CPUS_LOGON:
+					if (serializedUser != NULL)
+						m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, serializedUser, serializedPass);
+					else
+						if (pGina::Registry::GetBool(L"AutoLogonEnable", false))
+						{
+							pDEBUG(L"Provider::GetCredentialAt: AutoLogon enabled, initializing credential");
+							m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, pGina::Registry::GetString(L"AutoLogonUsername", L"").c_str(), pGina::Registry::GetString(L"AutoLogonPassword", L"").c_str());
+						}
+					break;
 				case CPUS_CREDUI:
 					m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, serializedUser, serializedPass);
 					break;

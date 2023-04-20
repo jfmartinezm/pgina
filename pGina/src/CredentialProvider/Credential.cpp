@@ -117,6 +117,22 @@ namespace pGina
 		{
 			// We don't do anything special here, but twould be the place to react to our tile being selected
 			*pbAutoLogon = FALSE;
+
+			if (pGina::Registry::GetBool(L"AutoLogonEnable", false))
+			{
+				pDEBUG(L"Credential::SetSelected: Autologon enabled");
+				if (!m_autologonFailed)
+				{
+					pDEBUG(L"Credential::SetSelected: enabling Autologon and marking as attempted");
+					m_autologonAttempted = true;
+					*pbAutoLogon = TRUE;
+				}
+				else
+				{
+					pDEBUG(L"Credential::SetSelected: previous Autologon failed, not enabling");
+				}
+			}
+
 			return S_OK;
 		}
 
@@ -524,6 +540,11 @@ namespace pGina
 				{
 					Credential::Thread_dialog_close(hThread_dialog);
 				}
+				if (m_autologonAttempted)
+				{ 
+					pDEBUG(L"Credential::Connect: marking AutoLogon attempt as failed");
+					m_autologonFailed = true;
+				}
 				return S_OK;
 			}
 
@@ -824,7 +845,9 @@ namespace pGina
 			m_usageScenario(CPUS_INVALID),
 			m_logonUiCallback(NULL),
 			m_fields(NULL),
-			m_usageFlags(0)
+			m_usageFlags(0),
+			m_autologonAttempted(false),
+			m_autologonFailed(false)
 		{
 			AddDllReference();
 
