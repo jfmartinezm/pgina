@@ -68,6 +68,9 @@ namespace pGina.Core
             s_settings.SetDefault("LastUsername", "");
             s_settings.SetDefault("LastUsernameEnable", false);
             s_settings.SetDefault("PreferLocalAuthentication", false);
+            s_settings.SetDefault("AutoLogonEnable", false);
+            s_settings.SetDefault("AutoLogonUsername", "");
+            s_settings.SetDefault("AutoLogonPassword", "");
 
             s_settings.SetDefault("CredentialProviderFilters", new string[] { });
 
