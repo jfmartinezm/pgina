@@ -102,7 +102,6 @@ namespace pGina
 			DWORD	m_usageFlags;
 			pGina::Transactions::User::LoginResult	m_loginResult;
 			bool m_autologonAttempted;
-			bool m_autologonFailed;
 			HWND									hdialog;
 			HANDLE									hThread_dialog;
 		};

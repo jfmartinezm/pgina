@@ -120,8 +120,8 @@ namespace pGina
 
 			if (pGina::Registry::GetBool(L"AutoLogonEnable", false))
 			{
-				pDEBUG(L"Credential::SetSelected: Autologon enabled");
-				if (!m_autologonFailed)
+				pDEBUG(L"Credential::SetSelected: AutoLogonEnable active");
+				if (!m_autologonAttempted)
 				{
 					pDEBUG(L"Credential::SetSelected: enabling Autologon and marking as attempted");
 					m_autologonAttempted = true;
@@ -129,7 +129,7 @@ namespace pGina
 				}
 				else
 				{
-					pDEBUG(L"Credential::SetSelected: previous Autologon failed, not enabling");
+					pDEBUG(L"Credential::SetSelected: Autologon already attempted, not enabling");
 				}
 			}
 
@@ -540,11 +540,7 @@ namespace pGina
 				{
 					Credential::Thread_dialog_close(hThread_dialog);
 				}
-				if (m_autologonAttempted)
-				{ 
-					pDEBUG(L"Credential::Connect: marking AutoLogon attempt as failed");
-					m_autologonFailed = true;
-				}
+
 				return S_OK;
 			}
 
@@ -846,8 +842,7 @@ namespace pGina
 			m_logonUiCallback(NULL),
 			m_fields(NULL),
 			m_usageFlags(0),
-			m_autologonAttempted(false),
-			m_autologonFailed(false)
+			m_autologonAttempted(false)
 		{
 			AddDllReference();
 
