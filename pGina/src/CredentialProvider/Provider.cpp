@@ -346,6 +346,13 @@ namespace pGina
 				*pdwDefault = 0;
 				*pbAutoLogonWithDefault = TRUE;
 			}
+
+			// If AutoLogon is enabled and has not been attempted, attempt autologon and mark it as attempted
+			if (pGina::Registry::GetBool(L"AutoLogonEnable", false) && !pGina::Registry::SubkeyExists(L"AutoLogonAttempted"))
+			{
+				pDEBUG(L"Provider::GetCredentialCount: AutoLogon enabled and not attempted, enabling AutoLogonWithDefault");
+				*pbAutoLogonWithDefault = TRUE;
+			}
 			return S_OK;
 		}
 
@@ -370,13 +377,18 @@ namespace pGina
 				switch(m_usageScenario)
 				{
 				case CPUS_LOGON:
-					if (pGina::Registry::GetBool(L"AutoLogonEnable", false) && serializedUser == NULL)
+					// Give priority to an existent serializedUser over AutoLogon
+					if (pGina::Registry::GetBool(L"AutoLogonEnable", false) && !pGina::Registry::SubkeyExists(L"AutoLogonAttempted")  && serializedUser == NULL)
 					{
-						pDEBUG(L"Provider::GetCredentialAt: AutoLogon enabled, initializing credential");
+						pDEBUG(L"Provider::GetCredentialAt: AutoLogon enabled, not attempted and no serializedUser, initializing credential with AutoLogon values");
 						m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, pGina::Registry::GetString(L"AutoLogonUsername", L"").c_str(), pGina::Registry::GetString(L"AutoLogonPassword", L"").c_str());
+						pGina::Registry::CreateVolatileSubkey(L"AutoLogonAttempted");
 					}
 					else
+					{
+						pDEBUG(L"Provider::GetCredentialAt: AutoLogon condition failed, initializing credential with serializedUser and serializedPass");
 						m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, serializedUser, serializedPass);
+					}
 					break;
 				case CPUS_CREDUI:
 					m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, serializedUser, serializedPass);

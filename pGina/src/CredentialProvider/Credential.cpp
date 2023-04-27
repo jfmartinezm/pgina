@@ -121,15 +121,15 @@ namespace pGina
 			if (pGina::Registry::GetBool(L"AutoLogonEnable", false))
 			{
 				pDEBUG(L"Credential::SetSelected: AutoLogonEnable active");
-				if (!m_autologonAttempted)
+				if (!pGina::Registry::SubkeyExists(L"AutoLogonAttempted"))
 				{
-					pDEBUG(L"Credential::SetSelected: enabling Autologon and marking as attempted");
-					m_autologonAttempted = true;
+					pDEBUG(L"Credential::SetSelected: AutoLogon not attempted, enabling AutoLogon and marking as attempted");
+					pGina::Registry::CreateVolatileSubkey(L"AutoLogonAttempted");
 					*pbAutoLogon = TRUE;
 				}
 				else
 				{
-					pDEBUG(L"Credential::SetSelected: Autologon already attempted, not enabling");
+					pDEBUG(L"Credential::SetSelected: AutoLogon already attempted, not enabling");
 				}
 			}
 
@@ -841,8 +841,7 @@ namespace pGina
 			m_usageScenario(CPUS_INVALID),
 			m_logonUiCallback(NULL),
 			m_fields(NULL),
-			m_usageFlags(0),
-			m_autologonAttempted(false)
+			m_usageFlags(0)
 		{
 			AddDllReference();
 
