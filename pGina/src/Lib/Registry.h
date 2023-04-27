@@ -43,5 +43,8 @@ namespace pGina
 		std::wstring GetString( HKEY base, const wchar_t *subKeyName, const wchar_t *valueName );
 		std::vector<std::wstring> GetStringArray( const wchar_t *subKeyName );
 		std::vector<std::wstring> GetStringArray( HKEY base, const wchar_t *subKeyName, const wchar_t *valueName );
+
+		std::wstring CreateVolatileSubkey(const wchar_t* subKeyName);
+		bool SubkeyExists(const wchar_t* subKeyName);
 	}
 }

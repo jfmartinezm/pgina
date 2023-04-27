@@ -150,5 +150,38 @@ namespace pGina
 			}
 			return result;
 		}
+
+		// Returns empty (zero-length) string if the key could not be created
+		std::wstring CreateVolatileSubkey(const wchar_t* subKeyName)
+		{
+			std::wstring result = L"";	// Do not assign NULL!
+			std::wstring newKey = std::wstring(L"Software\\pGina3.fork\\") + subKeyName;
+			HKEY hKey = NULL;
+
+			if (RegCreateKeyEx(HKEY_LOCAL_MACHINE, newKey.c_str(), 0, NULL, REG_OPTION_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL) == ERROR_SUCCESS)
+			{
+				result = subKeyName;
+
+				RegCloseKey(hKey);
+			}
+
+			return result;
+		}
+
+		// Returns empty (zero-length) string if the key does not exist
+		bool SubkeyExists(const wchar_t* subKeyName)
+		{
+			bool result = false;
+			HKEY hKey = NULL;
+			std::wstring checkKey = std::wstring(L"Software\\pGina3.fork\\") + subKeyName;
+
+			if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, checkKey.c_str(), 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+			{
+				result = true;
+				RegCloseKey(hKey);
+			}
+
+			return result;
+		}
 	}
 }
