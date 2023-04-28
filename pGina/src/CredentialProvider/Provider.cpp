@@ -380,9 +380,16 @@ namespace pGina
 					// Give priority to an existent serializedUser over AutoLogon
 					if (pGina::Registry::GetBool(L"AutoLogonEnable", false) && !pGina::Registry::SubkeyExists(L"AutoLogonAttempted")  && serializedUser == NULL)
 					{
-						pDEBUG(L"Provider::GetCredentialAt: AutoLogon enabled, not attempted and no serializedUser, initializing credential with AutoLogon values");
-						m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, pGina::Registry::GetString(L"AutoLogonUsername", L"").c_str(), pGina::Registry::GetString(L"AutoLogonPassword", L"").c_str());
-						pGina::Registry::CreateVolatileSubkey(L"AutoLogonAttempted");
+						if (!(GetKeyState(VK_SHIFT) & 0x8000))
+						{
+							pDEBUG(L"Provider::GetCredentialAt: AutoLogon enabled, not attempted and no serializedUser, initializing credential with AutoLogon values");
+							m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, pGina::Registry::GetString(L"AutoLogonUsername", L"").c_str(), pGina::Registry::GetString(L"AutoLogonPassword", L"").c_str());
+							pGina::Registry::CreateVolatileSubkey(L"AutoLogonAttempted");
+						}
+						else
+						{
+							pDEBUG(L"Provider::GetCredentialAt: SHIFT key pressed, not attempting AutoLogon");
+						}
 					}
 					else
 					{

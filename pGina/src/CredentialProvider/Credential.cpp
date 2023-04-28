@@ -124,8 +124,15 @@ namespace pGina
 				if (!pGina::Registry::SubkeyExists(L"AutoLogonAttempted"))
 				{
 					pDEBUG(L"Credential::SetSelected: AutoLogon not attempted, enabling AutoLogon and marking as attempted");
-					pGina::Registry::CreateVolatileSubkey(L"AutoLogonAttempted");
-					*pbAutoLogon = TRUE;
+					if (!(GetKeyState(VK_SHIFT) & 0x8000))
+					{
+						pGina::Registry::CreateVolatileSubkey(L"AutoLogonAttempted");
+						*pbAutoLogon = TRUE;
+					}
+					else
+					{
+						pDEBUG(L"Credential::SetSelected: SHIFT key pressed, not attempting AutoLogon");
+					}
 				}
 				else
 				{
