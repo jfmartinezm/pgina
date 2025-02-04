@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigurationUI));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.m_tabs = new System.Windows.Forms.TabControl();
             this.m_generalConfigTab = new System.Windows.Forms.TabPage();
             this.groupAutoLogon = new System.Windows.Forms.GroupBox();
+            this.chk_UseCustomAutologonCredentials = new System.Windows.Forms.CheckBox();
             this.labelAutoLogonPassword = new System.Windows.Forms.Label();
             this.tb_AutoLogonPassword = new System.Windows.Forms.TextBox();
             this.labelAutoLogonUsername = new System.Windows.Forms.Label();
@@ -235,6 +236,7 @@
             // 
             // m_generalConfigTab
             // 
+            this.m_generalConfigTab.BackColor = System.Drawing.Color.Transparent;
             this.m_generalConfigTab.Controls.Add(this.groupAutoLogon);
             this.m_generalConfigTab.Controls.Add(this.ntpservers_group);
             this.m_generalConfigTab.Controls.Add(this.groupLogon);
@@ -246,14 +248,14 @@
             this.m_generalConfigTab.Controls.Add(this.groupBox12);
             this.m_generalConfigTab.Location = new System.Drawing.Point(4, 22);
             this.m_generalConfigTab.Name = "m_generalConfigTab";
-            this.m_generalConfigTab.Padding = new System.Windows.Forms.Padding(3);
+            this.m_generalConfigTab.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.m_generalConfigTab.Size = new System.Drawing.Size(790, 612);
             this.m_generalConfigTab.TabIndex = 1;
             this.m_generalConfigTab.Text = "General";
-            this.m_generalConfigTab.UseVisualStyleBackColor = true;
             // 
             // groupAutoLogon
             // 
+            this.groupAutoLogon.Controls.Add(this.chk_UseCustomAutologonCredentials);
             this.groupAutoLogon.Controls.Add(this.labelAutoLogonPassword);
             this.groupAutoLogon.Controls.Add(this.tb_AutoLogonPassword);
             this.groupAutoLogon.Controls.Add(this.labelAutoLogonUsername);
@@ -266,47 +268,67 @@
             this.groupAutoLogon.TabStop = false;
             this.groupAutoLogon.Text = "AutoLogon";
             // 
+            // chk_UseCustomAutologonCredentials
+            // 
+            this.chk_UseCustomAutologonCredentials.AutoSize = true;
+            this.chk_UseCustomAutologonCredentials.Enabled = false;
+            this.chk_UseCustomAutologonCredentials.Location = new System.Drawing.Point(172, 21);
+            this.chk_UseCustomAutologonCredentials.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chk_UseCustomAutologonCredentials.Name = "chk_UseCustomAutologonCredentials";
+            this.chk_UseCustomAutologonCredentials.Size = new System.Drawing.Size(136, 17);
+            this.chk_UseCustomAutologonCredentials.TabIndex = 5;
+            this.chk_UseCustomAutologonCredentials.Text = "Use custom credentials";
+            this.chk_UseCustomAutologonCredentials.UseVisualStyleBackColor = true;
+            this.chk_UseCustomAutologonCredentials.CheckedChanged += new System.EventHandler(this.chk_UseCustomAutologonCredentials_CheckedChanged);
+            // 
             // labelAutoLogonPassword
             // 
             this.labelAutoLogonPassword.AutoSize = true;
-            this.labelAutoLogonPassword.Location = new System.Drawing.Point(457, 20);
+            this.labelAutoLogonPassword.Location = new System.Drawing.Point(522, 23);
             this.labelAutoLogonPassword.Name = "labelAutoLogonPassword";
-            this.labelAutoLogonPassword.Size = new System.Drawing.Size(111, 13);
+            this.labelAutoLogonPassword.Size = new System.Drawing.Size(56, 13);
             this.labelAutoLogonPassword.TabIndex = 4;
-            this.labelAutoLogonPassword.Text = "AutoLogon Password:";
+            this.labelAutoLogonPassword.Text = "Password:";
+            this.labelAutoLogonPassword.Click += new System.EventHandler(this.labelAutoLogonPassword_Click);
             // 
             // tb_AutoLogonPassword
             // 
-            this.tb_AutoLogonPassword.Location = new System.Drawing.Point(574, 17);
+            this.tb_AutoLogonPassword.Enabled = false;
+            this.tb_AutoLogonPassword.Location = new System.Drawing.Point(582, 19);
             this.tb_AutoLogonPassword.Name = "tb_AutoLogonPassword";
             this.tb_AutoLogonPassword.Size = new System.Drawing.Size(160, 20);
             this.tb_AutoLogonPassword.TabIndex = 3;
+            this.tb_AutoLogonPassword.TextChanged += new System.EventHandler(this.tb_AutoLogonPassword_TextChanged);
             // 
             // labelAutoLogonUsername
             // 
             this.labelAutoLogonUsername.AutoSize = true;
-            this.labelAutoLogonUsername.Location = new System.Drawing.Point(162, 20);
+            this.labelAutoLogonUsername.Location = new System.Drawing.Point(314, 23);
             this.labelAutoLogonUsername.Name = "labelAutoLogonUsername";
-            this.labelAutoLogonUsername.Size = new System.Drawing.Size(113, 13);
+            this.labelAutoLogonUsername.Size = new System.Drawing.Size(58, 13);
             this.labelAutoLogonUsername.TabIndex = 2;
-            this.labelAutoLogonUsername.Text = "AutoLogon Username:";
+            this.labelAutoLogonUsername.Text = "Username:";
+            this.labelAutoLogonUsername.Click += new System.EventHandler(this.labelAutoLogonUsername_Click);
             // 
             // tb_AutoLogonUsername
             // 
-            this.tb_AutoLogonUsername.Location = new System.Drawing.Point(279, 17);
+            this.tb_AutoLogonUsername.Enabled = false;
+            this.tb_AutoLogonUsername.Location = new System.Drawing.Point(378, 19);
             this.tb_AutoLogonUsername.Name = "tb_AutoLogonUsername";
-            this.tb_AutoLogonUsername.Size = new System.Drawing.Size(160, 20);
+            this.tb_AutoLogonUsername.Size = new System.Drawing.Size(135, 20);
             this.tb_AutoLogonUsername.TabIndex = 1;
+            this.tb_AutoLogonUsername.TextChanged += new System.EventHandler(this.tb_AutoLogonUsername_TextChanged);
             // 
             // chk_AutoLogonEnable
             // 
             this.chk_AutoLogonEnable.AutoSize = true;
-            this.chk_AutoLogonEnable.Location = new System.Drawing.Point(12, 19);
+            this.chk_AutoLogonEnable.Location = new System.Drawing.Point(6, 21);
             this.chk_AutoLogonEnable.Name = "chk_AutoLogonEnable";
-            this.chk_AutoLogonEnable.Size = new System.Drawing.Size(114, 17);
+            this.chk_AutoLogonEnable.Size = new System.Drawing.Size(147, 17);
             this.chk_AutoLogonEnable.TabIndex = 0;
-            this.chk_AutoLogonEnable.Text = "Enable AutoLogon";
+            this.chk_AutoLogonEnable.Text = "Use Windows AutoLogon";
             this.chk_AutoLogonEnable.UseVisualStyleBackColor = true;
+            this.chk_AutoLogonEnable.CheckedChanged += new System.EventHandler(this.chk_AutoLogonEnable_CheckedChanged);
             // 
             // ntpservers_group
             // 
@@ -727,8 +749,8 @@
             this.m_pluginConfigTab.Controls.Add(this.groupBox1);
             this.m_pluginConfigTab.Location = new System.Drawing.Point(4, 22);
             this.m_pluginConfigTab.Name = "m_pluginConfigTab";
-            this.m_pluginConfigTab.Padding = new System.Windows.Forms.Padding(3);
-            this.m_pluginConfigTab.Size = new System.Drawing.Size(790, 612);
+            this.m_pluginConfigTab.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.m_pluginConfigTab.Size = new System.Drawing.Size(790, 608);
             this.m_pluginConfigTab.TabIndex = 0;
             this.m_pluginConfigTab.Text = "Plugin Selection";
             this.m_pluginConfigTab.UseVisualStyleBackColor = true;
@@ -754,33 +776,34 @@
             this.pluginsDG.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.pluginsDG.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.pluginsDG.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.pluginsDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.pluginsDG.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.pluginsDG.DefaultCellStyle = dataGridViewCellStyle8;
             this.pluginsDG.Location = new System.Drawing.Point(10, 19);
             this.pluginsDG.Name = "pluginsDG";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.pluginsDG.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.pluginsDG.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.pluginsDG.RowHeadersWidth = 62;
             this.pluginsDG.Size = new System.Drawing.Size(735, 316);
             this.pluginsDG.TabIndex = 0;
             this.pluginsDG.DoubleClick += new System.EventHandler(this.pluginsDG_DoubleClick);
@@ -854,7 +877,7 @@
             this.m_pluginOrderTab.Controls.Add(this.groupBox7);
             this.m_pluginOrderTab.Location = new System.Drawing.Point(4, 22);
             this.m_pluginOrderTab.Name = "m_pluginOrderTab";
-            this.m_pluginOrderTab.Size = new System.Drawing.Size(790, 612);
+            this.m_pluginOrderTab.Size = new System.Drawing.Size(790, 608);
             this.m_pluginOrderTab.TabIndex = 3;
             this.m_pluginOrderTab.Text = "Plugin Order";
             this.m_pluginOrderTab.UseVisualStyleBackColor = true;
@@ -902,6 +925,7 @@
             this.passwdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.passwdDGV.Location = new System.Drawing.Point(15, 19);
             this.passwdDGV.Name = "passwdDGV";
+            this.passwdDGV.RowHeadersWidth = 62;
             this.passwdDGV.Size = new System.Drawing.Size(318, 131);
             this.passwdDGV.TabIndex = 0;
             // 
@@ -946,6 +970,7 @@
             this.gatewayDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gatewayDGV.Location = new System.Drawing.Point(15, 20);
             this.gatewayDGV.Name = "gatewayDGV";
+            this.gatewayDGV.RowHeadersWidth = 62;
             this.gatewayDGV.Size = new System.Drawing.Size(309, 131);
             this.gatewayDGV.TabIndex = 0;
             // 
@@ -990,6 +1015,7 @@
             this.eventDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.eventDGV.Location = new System.Drawing.Point(15, 20);
             this.eventDGV.Name = "eventDGV";
+            this.eventDGV.RowHeadersWidth = 62;
             this.eventDGV.Size = new System.Drawing.Size(318, 131);
             this.eventDGV.TabIndex = 0;
             // 
@@ -1034,6 +1060,7 @@
             this.authorizeDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.authorizeDGV.Location = new System.Drawing.Point(15, 20);
             this.authorizeDGV.Name = "authorizeDGV";
+            this.authorizeDGV.RowHeadersWidth = 62;
             this.authorizeDGV.Size = new System.Drawing.Size(318, 131);
             this.authorizeDGV.TabIndex = 0;
             // 
@@ -1078,6 +1105,7 @@
             this.authenticateDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.authenticateDGV.Location = new System.Drawing.Point(15, 20);
             this.authenticateDGV.Name = "authenticateDGV";
+            this.authenticateDGV.RowHeadersWidth = 62;
             this.authenticateDGV.Size = new System.Drawing.Size(309, 131);
             this.authenticateDGV.TabIndex = 0;
             // 
@@ -1087,8 +1115,8 @@
             this.ginaOptions.Controls.Add(this.groupBox15);
             this.ginaOptions.Location = new System.Drawing.Point(4, 22);
             this.ginaOptions.Name = "ginaOptions";
-            this.ginaOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.ginaOptions.Size = new System.Drawing.Size(790, 612);
+            this.ginaOptions.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.ginaOptions.Size = new System.Drawing.Size(790, 608);
             this.ginaOptions.TabIndex = 4;
             this.ginaOptions.Text = "GINA Options";
             this.ginaOptions.UseVisualStyleBackColor = true;
@@ -1205,8 +1233,8 @@
             this.cpOptions.Controls.Add(this.groupBox9);
             this.cpOptions.Location = new System.Drawing.Point(4, 22);
             this.cpOptions.Name = "cpOptions";
-            this.cpOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.cpOptions.Size = new System.Drawing.Size(790, 612);
+            this.cpOptions.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.cpOptions.Size = new System.Drawing.Size(790, 608);
             this.cpOptions.TabIndex = 5;
             this.cpOptions.Text = "Credential Provider Options";
             this.cpOptions.UseVisualStyleBackColor = true;
@@ -1239,6 +1267,7 @@
             this.dgvCredProvFilter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCredProvFilter.Location = new System.Drawing.Point(13, 38);
             this.dgvCredProvFilter.Name = "dgvCredProvFilter";
+            this.dgvCredProvFilter.RowHeadersWidth = 62;
             this.dgvCredProvFilter.Size = new System.Drawing.Size(721, 266);
             this.dgvCredProvFilter.TabIndex = 1;
             // 
@@ -1645,7 +1674,7 @@
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(735, 667);
+            this.btnApply.Location = new System.Drawing.Point(735, 666);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
             this.btnApply.TabIndex = 5;
@@ -1656,7 +1685,7 @@
             // btnOkay
             // 
             this.btnOkay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOkay.Location = new System.Drawing.Point(573, 667);
+            this.btnOkay.Location = new System.Drawing.Point(573, 666);
             this.btnOkay.Name = "btnOkay";
             this.btnOkay.Size = new System.Drawing.Size(75, 23);
             this.btnOkay.TabIndex = 3;
@@ -1668,7 +1697,7 @@
             // 
             this.m_pginaVersionLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_pginaVersionLbl.AutoSize = true;
-            this.m_pginaVersionLbl.Location = new System.Drawing.Point(12, 680);
+            this.m_pginaVersionLbl.Location = new System.Drawing.Point(12, 679);
             this.m_pginaVersionLbl.Name = "m_pginaVersionLbl";
             this.m_pginaVersionLbl.Size = new System.Drawing.Size(72, 13);
             this.m_pginaVersionLbl.TabIndex = 1;
@@ -1677,7 +1706,7 @@
             // btnSaveAndClose
             // 
             this.btnSaveAndClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveAndClose.Location = new System.Drawing.Point(654, 667);
+            this.btnSaveAndClose.Location = new System.Drawing.Point(654, 666);
             this.btnSaveAndClose.Name = "btnSaveAndClose";
             this.btnSaveAndClose.Size = new System.Drawing.Size(75, 23);
             this.btnSaveAndClose.TabIndex = 4;
@@ -1689,7 +1718,7 @@
             // help
             // 
             this.help.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.help.Location = new System.Drawing.Point(492, 667);
+            this.help.Location = new System.Drawing.Point(492, 666);
             this.help.Name = "help";
             this.help.Size = new System.Drawing.Size(75, 23);
             this.help.TabIndex = 2;
@@ -1701,7 +1730,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(822, 702);
+            this.ClientSize = new System.Drawing.Size(822, 701);
             this.Controls.Add(this.help);
             this.Controls.Add(this.btnSaveAndClose);
             this.Controls.Add(this.m_pginaVersionLbl);
@@ -1781,7 +1810,6 @@
 
         private System.Windows.Forms.TabControl m_tabs;
         private System.Windows.Forms.TabPage m_pluginConfigTab;
-        private System.Windows.Forms.TabPage m_generalConfigTab;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnAdd;
@@ -1836,28 +1864,6 @@
         private System.Windows.Forms.TextBox m_passwordResult;
         private System.Windows.Forms.TextBox m_domainResult;
         private System.Windows.Forms.TextBox m_usernameResult;
-        private System.Windows.Forms.GroupBox groupBox12;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.PictureBox m_tileImagePreview;
-        private System.Windows.Forms.TextBox m_tileImageTxt;
-        private System.Windows.Forms.Button btnImageBrowse;
-        private System.Windows.Forms.GroupBox motdGB;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox motdTB;
-        private System.Windows.Forms.Label motdLabel;
-        private System.Windows.Forms.GroupBox servGB;
-        private System.Windows.Forms.Label servStatusLabel;
-        private System.Windows.Forms.Button serviceStopBtn;
-        private System.Windows.Forms.Button serviceStartBtn;
-        private System.Windows.Forms.TextBox serviceStatusTB;
-        private System.Windows.Forms.GroupBox groupBox14;
-        private System.Windows.Forms.Button cpEnableDisableBtn;
-        private System.Windows.Forms.Button cpRegisterBtn;
-        private System.Windows.Forms.TextBox cpEnabledTB;
-        private System.Windows.Forms.Label cpEnabledLabel;
-        private System.Windows.Forms.TextBox cpRegisteredTB;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TabPage ginaOptions;
         private System.Windows.Forms.TabPage cpOptions;
         private System.Windows.Forms.GroupBox groupBox15;
@@ -1884,16 +1890,26 @@
         private System.Windows.Forms.PictureBox simFinalResultPB;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox simFinalResultMessageTB;
-        private System.Windows.Forms.CheckBox enableMotdCB;
-        private System.Windows.Forms.CheckBox logonUiShowServiceStatusCB;
         private System.Windows.Forms.Button btnSaveAndClose;
         private System.Windows.Forms.TextBox simResultLocalGroupsTB;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.DataGridView dgvCredProvFilter;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.CheckBox chk_originalUsernameUnlock;
+        private System.Windows.Forms.Button help;
+        private System.Windows.Forms.TabPage m_generalConfigTab;
+        private System.Windows.Forms.GroupBox groupAutoLogon;
+        private System.Windows.Forms.CheckBox chk_UseCustomAutologonCredentials;
+        private System.Windows.Forms.Label labelAutoLogonPassword;
+        private System.Windows.Forms.TextBox tb_AutoLogonPassword;
+        private System.Windows.Forms.Label labelAutoLogonUsername;
+        private System.Windows.Forms.TextBox tb_AutoLogonUsername;
+        private System.Windows.Forms.CheckBox chk_AutoLogonEnable;
+        private System.Windows.Forms.GroupBox ntpservers_group;
+        private System.Windows.Forms.RichTextBox ntpservers;
+        private System.Windows.Forms.GroupBox groupLogon;
+        private System.Windows.Forms.CheckBox chk_preferlocalauthentication;
+        private System.Windows.Forms.CheckBox chk_lastusername;
         private System.Windows.Forms.GroupBox groupBox18;
         private System.Windows.Forms.Label notify_label_pass;
         private System.Windows.Forms.Label notify_label_user;
@@ -1905,17 +1921,31 @@
         private System.Windows.Forms.TextBox notify_user;
         private System.Windows.Forms.TextBox notify_email;
         private System.Windows.Forms.TextBox notify_smtp;
-        private System.Windows.Forms.Button help;
-        private System.Windows.Forms.GroupBox groupLogon;
-        private System.Windows.Forms.CheckBox chk_lastusername;
-        private System.Windows.Forms.GroupBox ntpservers_group;
-        private System.Windows.Forms.RichTextBox ntpservers;
-        private System.Windows.Forms.CheckBox chk_preferlocalauthentication;
-        private System.Windows.Forms.GroupBox groupAutoLogon;
-        private System.Windows.Forms.Label labelAutoLogonPassword;
-        private System.Windows.Forms.TextBox tb_AutoLogonPassword;
-        private System.Windows.Forms.Label labelAutoLogonUsername;
-        private System.Windows.Forms.TextBox tb_AutoLogonUsername;
-        private System.Windows.Forms.CheckBox chk_AutoLogonEnable;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.CheckBox chk_originalUsernameUnlock;
+        private System.Windows.Forms.GroupBox groupBox14;
+        private System.Windows.Forms.Button cpEnableDisableBtn;
+        private System.Windows.Forms.Button cpRegisterBtn;
+        private System.Windows.Forms.TextBox cpEnabledTB;
+        private System.Windows.Forms.Label cpEnabledLabel;
+        private System.Windows.Forms.TextBox cpRegisteredTB;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.GroupBox servGB;
+        private System.Windows.Forms.CheckBox logonUiShowServiceStatusCB;
+        private System.Windows.Forms.Button serviceStopBtn;
+        private System.Windows.Forms.Button serviceStartBtn;
+        private System.Windows.Forms.TextBox serviceStatusTB;
+        private System.Windows.Forms.Label servStatusLabel;
+        private System.Windows.Forms.GroupBox motdGB;
+        private System.Windows.Forms.CheckBox enableMotdCB;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox motdTB;
+        private System.Windows.Forms.Label motdLabel;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.Button btnImageBrowse;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.PictureBox m_tileImagePreview;
+        private System.Windows.Forms.TextBox m_tileImageTxt;
+        private System.Windows.Forms.Label label10;
     }
 }

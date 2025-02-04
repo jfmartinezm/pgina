@@ -383,7 +383,30 @@ namespace pGina
 						if (!(GetKeyState(VK_SHIFT) & 0x8000))
 						{
 							pDEBUG(L"Provider::GetCredentialAt: AutoLogon enabled, not attempted and no serializedUser, initializing credential with AutoLogon values");
-							m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, pGina::Registry::GetString(L"AutoLogonUsername", L"").c_str(), pGina::Registry::GetString(L"AutoLogonPassword", L"").c_str());
+							if (pGina::Registry::GetBool(L"AutoLogonUseCustomCredentials", false))
+							{
+								pDEBUG(L"Provider::GetCredentialAt: AutoLogon using custom credentials");
+								m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, pGina::Registry::GetString(L"AutoLogonUsername", L"").c_str(), pGina::Registry::GetString(L"AutoLogonPassword", L"").c_str());
+							}
+							else
+							{
+								pDEBUG(L"Provider::GetCredentialAt: AutoLogon using Windows Autologon settings");
+								std::wstring autoAdminLogon = L"";
+								autoAdminLogon = pGina::Registry::GetString(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon", L"AutoAdminLogon");
+								if (_wcsicmp(autoAdminLogon.c_str(), L"1") == 0) 
+								{
+									pDEBUG(L"Provider::GetCredentialAt: Windows AutoAdminLogon enabled, initializing with DefaultUserName and DefaultPassword");
+									std::wstring DefaultUserName = L"";
+									std::wstring DefaultPassword = L"";
+									DefaultUserName = pGina::Registry::GetString(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon", L"DefaultUserName");
+									DefaultPassword = pGina::Registry::GetString(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon", L"DefaultPassword");
+									m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, DefaultUserName.c_str(), DefaultPassword.c_str());
+								}
+								else
+								{
+									pDEBUG(L"Provider::GetCredentialAt: Windows AutoAdminLogon disabled, not processing Autologon");
+								}
+							}
 							pGina::Registry::CreateVolatileSubkey(L"AutoLogonAttempted");
 						}
 						else

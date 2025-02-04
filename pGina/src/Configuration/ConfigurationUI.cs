@@ -323,9 +323,10 @@ namespace pGina.Configuration
             this.notify_ssl.Checked = Settings.Get.notify_ssl;
 
             // Autologon
-            this.chk_AutoLogonEnable.Checked = Settings.Get.AutoLogonEnable;
+            this.chk_AutoLogonEnable.Checked = Settings.Get.GetSetting("AutoLogonEnable");
             this.tb_AutoLogonUsername.Text = Settings.Get.GetSetting("AutoLogonUsername");
             this.tb_AutoLogonPassword.Text = Settings.Get.GetSetting("AutoLogonPassword");
+            this.chk_UseCustomAutologonCredentials.Checked = Settings.Get.GetSetting("AutoLogonUseCustomCredentials");
         }
 
         private void UpdateCpStatus()
@@ -974,6 +975,7 @@ namespace pGina.Configuration
             Settings.Get.AutoLogonEnable = this.chk_AutoLogonEnable.Checked;
             Settings.Get.AutoLogonUsername = this.tb_AutoLogonUsername.Text;
             Settings.Get.AutoLogonPassword = this.tb_AutoLogonPassword.Text;
+            Settings.Get.AutoLogonUseCustomCredentials = this.chk_UseCustomAutologonCredentials.Checked;
 
             return true;
         }
@@ -1627,6 +1629,39 @@ namespace pGina.Configuration
         private void Btn_help(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://mutonufoai.github.io/pgina/documentation.html");
+        }
+
+        private void chk_AutoLogonEnable_CheckedChanged(object sender, EventArgs e)
+        {
+            chk_UseCustomAutologonCredentials.Enabled = chk_AutoLogonEnable.Checked;
+            tb_AutoLogonUsername.Enabled = chk_AutoLogonEnable.Checked;
+            tb_AutoLogonPassword.Enabled = chk_AutoLogonEnable.Checked;
+        }
+
+        private void chk_UseCustomAutologonCredentials_CheckedChanged(object sender, EventArgs e)
+        {
+            tb_AutoLogonUsername.Enabled = chk_UseCustomAutologonCredentials.Checked;
+            tb_AutoLogonPassword.Enabled = chk_UseCustomAutologonCredentials.Checked;
+        }
+
+        private void tb_AutoLogonPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tb_AutoLogonUsername_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelAutoLogonUsername_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelAutoLogonPassword_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
