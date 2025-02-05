@@ -6,13 +6,6 @@
 #define MyAppSetupName 'pGina'
 #define SetupScriptVersion '0'
 
-
-; Use some useful packaging stuff from: http://tonaday.blogspot.com/2010/12/innosetup.html
-// dotnet_Passive enabled shows the .NET/VC2010 installation progress, as it can take quite some time
-#define dotnet_Passive
-#define use_dotnetfx40
-#define use_vc2010
-
 // Enable the required define(s) below if a local event function (prepended with Local) is used
 //#define haveLocalPrepareToInstall
 //#define haveLocalNeedRestart
@@ -48,7 +41,7 @@ AlwaysShowGroupOnReadyPage=yes
 DisableProgramGroupPage=auto
 AlwaysRestart=yes
 
-ArchitecturesInstallIn64BitMode=x64 ia64
+ArchitecturesInstallIn64BitMode=x64compatible
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
@@ -87,13 +80,9 @@ Filename: "{app}\pGina.InstallUtil.exe"; Parameters: "post-uninstall"; StatusMsg
 #include "scripts\products\winversion.iss"
 #include "scripts\products\fileversion.iss"
 
-#ifdef use_dotnetfx40
-#include "scripts\products\dotnetfx40client.iss"
-#include "scripts\products\dotnetfx40full.iss"
-#endif
-#ifdef use_vc2010
-#include "scripts\products\vc2010.iss"
-#endif
+// Use https://github.com/DomGries/InnoDependencyInstaller 
+// for .NET and VC Redistributable installation
+#include "scripts\CodeDependencies.iss"
 
 #include "scripts\services.iss"
 
@@ -133,15 +122,8 @@ begin
     Abort;
   end;
 	
-  // If no .NET 4.0 framework found, install the full thing
-#ifdef use_dotnetfx40
-  dotnetfx40full(false);
-#endif
-
-  // Visual C++ 2010 Redistributable
-#ifdef use_vc2010
-  vc2010();
-#endif
+  Dependency_AddDotNet40;
+  Dependency_AddVC2015To2022;
 	
   Result := true;
 end;
