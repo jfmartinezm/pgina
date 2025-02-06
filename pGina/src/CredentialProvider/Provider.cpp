@@ -404,19 +404,21 @@ namespace pGina
 								}
 								else
 								{
-									pDEBUG(L"Provider::GetCredentialAt: Windows AutoAdminLogon disabled, not processing Autologon");
+									pDEBUG(L"Provider::GetCredentialAt: Windows AutoAdminLogon disabled, not processing Autologon. Initializing credential with serializedUser and serializedPass");
+									m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, serializedUser, serializedPass);
 								}
 							}
 							pGina::Registry::CreateVolatileSubkey(L"AutoLogonAttempted");
 						}
 						else
 						{
-							pDEBUG(L"Provider::GetCredentialAt: SHIFT key pressed, not attempting AutoLogon");
+							pDEBUG(L"Provider::GetCredentialAt: SHIFT key pressed, not attempting AutoLogon. Initializing credential with serializedUser and serializedPass");
+							m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, serializedUser, serializedPass);
 						}
 					}
 					else
 					{
-						pDEBUG(L"Provider::GetCredentialAt: AutoLogon condition failed, initializing credential with serializedUser and serializedPass");
+						pDEBUG(L"Provider::GetCredentialAt: AutoLogon condition failed. initializing credential with serializedUser and serializedPass");
 						m_credential->Initialize(m_usageScenario, s_logonFields, m_usageFlags, serializedUser, serializedPass);
 					}
 					break;
